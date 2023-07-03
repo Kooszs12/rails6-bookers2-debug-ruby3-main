@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     #単数系にするとURLにIDが含まれない。Bookの投稿一つにいいね機能をつけたいためdo~endで囲む
     resource :favorites, only: [:create, :destroy]
+    resources :book_comments, only: [:create, :destroy]
   end
 
 end
