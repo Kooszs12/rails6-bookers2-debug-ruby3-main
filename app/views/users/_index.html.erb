@@ -12,7 +12,6 @@
         <td><%= image_tag @user.get_profile_image(100, 100) %></td>
         <td><%= user.name %></td>
         <td><%= link_to 'Show', user_path(user.id) %></td>
-        <tb><%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %></tb>
       </tr>
     <% end %>
   </tbody>
