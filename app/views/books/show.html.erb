@@ -1,11 +1,12 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-3'>
+
       <h2>User info</h2>
-      <%= render 'users/info',book: @book %>
+      <%= render 'users/info',book: @book ,user: @user %>
 
       <h2 class="mt-3">New book</h2>
-      <%= render 'form', user: @user %>
+      <%= render 'form', user: @user ,book: @book_new %>
     </div>
 
     <div class='col-md-8 offset-md-1'>
@@ -19,8 +20,11 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
-            <td><%= link_to 'Destroy', book_path(@book.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+          <!--ユーザー本人にしか表示させないようにするコード-->
+          <% if @user == current_user %>
+            <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
+            <td><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "Are you sure?", class: "btn btn-sm btn-danger" %></td>
+          <% end %>
         </tr>
       </table>
     </div>
