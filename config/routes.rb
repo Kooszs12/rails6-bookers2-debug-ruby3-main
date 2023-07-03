@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   devise_for :users
   get 'home/about' => 'homes#about'
   resources :users, only: [:create, :index, :show, :edit, :update]
-  resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy]
-  #単数系にするとURLにIDが含まれない。
-  resource :favorites, only: [:create, :destroy]
+  resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+    #単数系にするとURLにIDが含まれない。Bookの投稿一つにいいね機能をつけたいためdo~endで囲む
+    resource :favorites, only: [:create, :destroy]
+  end
 
 end
