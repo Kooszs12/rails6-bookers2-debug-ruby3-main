@@ -10,8 +10,10 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <!--検索フォームでモデル指定があるため変数受け渡しは-->
     <%= render 'layouts/header' %>
       <main>
+        <p><%= render 'searches/search_form' %></p>
         <p id="notice"><%= notice %></p>
         <%= yield %>
       </main>
