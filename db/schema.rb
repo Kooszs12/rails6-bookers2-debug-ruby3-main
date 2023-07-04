@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_03_121226) do
+ActiveRecord::Schema.define(version: 2023_07_04_003948) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2023_07_03_121226) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  #投稿に対してのコメントテーブル
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
     t.integer "user_id"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 2023_07_03_121226) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+　#投稿データのテーブル
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 2023_07_03_121226) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+　#投稿に対してのいいねテーブル
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
@@ -63,6 +66,15 @@ ActiveRecord::Schema.define(version: 2023_07_03_121226) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  #フォロー/フォロワーデータテーブル
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+　#ユーザーデータテーブル
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

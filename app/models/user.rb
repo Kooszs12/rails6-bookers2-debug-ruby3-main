@@ -5,17 +5,30 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :books, dependent: :destroy
+  #画像のカラム
   has_one_attached :profile_image
+  #投稿との関係
+  has_many :books, dependent: :destroy
+  #投稿に対するいいねとの関係
   has_many :favorites, dependent: :destroy
+  #投稿に対するコメントとの関係
   has_many :book_comments, dependent: :destroy
+  # フォローをした、されたの関係
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # 一覧画面で使う
+  has_many :followings, through: :relationships, source: :followed
+  has_many :followers, through: :reverse_of_relationships, source: :follower
 
+
+  #ユーザー編集に対する制限とバリデーション機能
   validates :name,
     length: { minimum: 2, maximum: 20 },
     uniqueness: true
   validates :introduction,
     length: { maximum: 50 }
 
+  #プロフィール画像についての
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
