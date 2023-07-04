@@ -1,3 +1,4 @@
+<!--サイドバー：ユーザーの詳細情報-->
 <%= image_tag user.get_profile_image(100, 100) %>
   <table class = "table">
     <tbody>
@@ -10,20 +11,36 @@
         <th>introduction</th>
         <th><%= user.introduction %></th>
       </tr>
-      
       <tr>
         <th>follows</th>
+        <!--フォロー人数をカウント-->
         <th><%= user.followings.count %></th>
       </tr>
       <tr>
         <th>followers</th>
+        <!--フォロワー人数をカウント-->
         <th><%= user.followers.count %></th>
       </tr>
     </tbody>
   </table>
 
   <div class = "row">
-    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-      <i class="fas fa-user-cog"></i>
+    <!--編集ボタン-->
+    <% if @user == current_user %>
+      <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+        <i class="fas fa-user-cog"></i>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class ="row">
+    <% if current_user.following?(user) %>
+      <%= link_to user_relationships_path(user.id), method: :deleteclass, class: "btn btn-outline-secondary btn-block btn-success text-light" do %>
+        フォローを外す
+      <% end %>
+    <% else %>
+      <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-outline-secondary btn-block btn-success text-light" do %>
+        フォローする
+      <% end %>
     <% end %>
   </div>
