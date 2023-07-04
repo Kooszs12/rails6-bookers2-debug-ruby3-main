@@ -20,26 +20,9 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-          <tb>
-            <!--いいねの表示切り替え-->
-            <% if @book.favorited_by?(current_user) %>
-              <p>
-                <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
-                <%= link_to book_favorites_path(@book), method: :delete do %>
-                  ♥<%= @book.favorites.count %> いいね
-                <% end %>
-              </p>
-            <% else %>
-              <p>
-                <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
-                <%= link_to book_favorites_path(@book), method: :post do %>
-                  ♡<%= @book.favorites.count %> いいね
-                <% end %>
-              </p>
-            <% end %>
-          </tb>
-          <tb>コメント件数：<%= @book.book_comments.count %></tb>
-
+          <!--_favoriteの部分テンプレート-->
+          <td><%= render 'favorites/favorite', book: @book %></td>
+          <td>コメント件数：<%= @book.book_comments.count %></td>
           <!--ユーザー本人にしか表示させないようにするコード-->
           <% if @user == current_user %>
             <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
@@ -55,7 +38,7 @@
           <%= book_comment.user.name %>
           <%= book_comment.created_at.strftime('%Y/%m/%d') %><%= book_comment.comment %>
 
-          <% if post_comment.user == current_user %>
+          <% if book_comment.user == current_user %>
             <%= link_to "削除", book_book_comment_path(book_comment.book, book_comment), method: :delete %>
           <% end %>
 
