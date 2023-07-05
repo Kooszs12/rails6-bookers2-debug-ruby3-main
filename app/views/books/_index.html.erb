@@ -18,8 +18,12 @@
         </td>
         <td><%= link_to book.title, book_path(book.id) %></td>
         <td><%= book.body %></td>
-        <!--_favoriteの部分テンプレート呼び出し-->
-        <td><%= render 'favorites/favorite', book: book %></td>
+
+        <!--いいね機能ajax-partial(非同期通信)-->
+        <td id="favorite_buttons_<%= book.id %>" >
+          <!--_favoriteの部分テンプレート呼び出し-->
+          <%= render 'favorites/favorite', book: book %>
+        </td>
         <!--コメント表示-->
         <td><%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %></td>
       </tr>

@@ -20,8 +20,11 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-          <!--_favoriteの部分テンプレート-->
-          <td><%= render 'favorites/favorite', book: @book %></td>
+          <<!--_>いいね非同期通信-->
+          <td id="favorite_buttons_<%= @book.id %>" >
+            <!--_favoriteの部分テンプレート-->
+            <%= render 'favorites/favorite', book: @book %>
+          </td>
           <td>コメント件数：<%= @book.book_comments.count %></td>
           <!--ユーザー本人にしか表示させないようにするコード-->
           <% if @user == current_user %>
