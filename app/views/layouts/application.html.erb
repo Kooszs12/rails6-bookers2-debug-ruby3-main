@@ -10,11 +10,15 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <!--検索フォームでモデル指定があるため変数受け渡しは-->
     <%= render 'layouts/header' %>
       <main>
-        <p><%= render 'searches/search_form' %></p>
+        <!--d-flex align-items-centerで子要素を中央寄せをし、justify-content-centerで左右の中央寄せになる-->
+        <div class = "d-flex align-items-center justify-content-center">
+          <!--検索フォームでモデル指定があるため変数受け渡しは必要なし-->
+          <p><%= render 'searches/search_form' %></p>
+        </div>
         <p id="notice"><%= notice %></p>
+        <!--他のviewへ反映させるためのコード-->
         <%= yield %>
       </main>
     <%= render 'layouts/footer' %>

@@ -33,6 +33,7 @@
 
       <div><%= render 'book_comments/comment', book: @book %></div>
 
+      <!--コメント入力機能-->
       <div>
         <%= form_with model: [@book, @book_comment] do |f| %>
           <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
