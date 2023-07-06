@@ -20,12 +20,15 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-          <<!--_>いいね非同期通信-->
+          <!--_>いいね非同期通信-->
           <td id="favorite_buttons_<%= @book.id %>" >
             <!--_favoriteの部分テンプレート-->
             <%= render 'favorites/favorite', book: @book %>
           </td>
-          <td>コメント件数：<%= @book.book_comments.count %></td>
+          <!--コメント件数の部分テンプレートを呼び出している-->
+          <td id="comment_counter">
+             <%= render "book_comments/counter", book: @book %>
+          </td>
           <!--ユーザー本人にしか表示させないようにするコード-->
           <% if @user == current_user %>
             <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
@@ -34,15 +37,13 @@
         </tr>
       </table>
 
-      <div><%= render 'book_comments/comment', book: @book %></div>
+      <!--コメント一覧表示-->
+      <div id="comment_index">
+        <%= render 'book_comments/index', book: @book %>
+      </div>
 
       <!--コメント入力機能-->
-      <div>
-        <%= form_with model: [@book, @book_comment], local: false do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "w-100", id: "comment_textarea" %>
-          <%= f.submit "送信" %>
-        <% end %>
-      </div>
+      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
 
     </div>
   </div>
