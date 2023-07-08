@@ -1,5 +1,5 @@
 <!--コメント一覧のJavaScriptファイル-->
 $('#comment_counter').html("<%= j(render 'book_comments/counter', book: @book) %>");
 $('#comment_index').html("<%= j(render 'book_comments/index', book: @book) %>");
-<!--コメントをリセットさせる-->
+<!--コメントフォームの入力した値をリセットさせる-->
 $('#comment_textarea').val("");
