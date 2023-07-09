@@ -88,7 +88,7 @@
       <canvas id="myLineChart"></canvas>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
-        $(document).on('turbolinks:load', function() {
+        $(document).on('turbolinks:render', function() {
           var ctx = document.getElementById("myLineChart");
           var myLineChart = new Chart(ctx, {
             type: 'line',
