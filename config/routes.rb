@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
+      get "search", to: "users#search"
   end
+
   resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     #単数系にするとURLにIDが含まれない。Bookひとつの投稿に対して実行されるものなのでdo~endで囲む
     resource :favorites, only: [:create, :destroy]
